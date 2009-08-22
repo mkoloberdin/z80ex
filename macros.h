@@ -98,8 +98,10 @@
 { \
 	int nn;\
     if(cpu->tstate_cb == NULL) { \
-        cpu->tstate += t_state - cpu->op_tstate; \
-        cpu->op_tstate = t_state; \
+        if (t_state > cpu->op_tstate) { \
+            cpu->tstate += t_state - cpu->op_tstate; \
+            cpu->op_tstate = t_state; \
+        } \
     } \
     else { \
 	    for(nn=cpu->op_tstate;nn < t_state;nn++) { \
