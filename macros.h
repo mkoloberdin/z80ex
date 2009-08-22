@@ -115,11 +115,16 @@ for using outside of certain opcode execution)*/
 #define TSTATES(amount) \
 {\
 	int nn;\
-	for(nn=0; nn < amount; nn++) \
-	{ \
-		cpu->tstate++; \
-		if(cpu->tstate_cb != NULL) cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
-	}\
+    if(cpu->tstate_cb == NULL) { \
+	    cpu->tstate += amount; \
+    } \
+    else { \
+    for(nn=0; nn < amount; nn++) \
+	    { \
+		    cpu->tstate++; \
+		    cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
+	    }\
+    } \
 }
 
 /*read byte from memory*/
