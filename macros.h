@@ -97,11 +97,17 @@
 #define T_WAIT_UNTIL(t_state) \
 { \
 	int nn;\
-	for(nn=cpu->op_tstate;nn < t_state;nn++) { \
-		cpu->op_tstate++; \
-		cpu->tstate++; \
-		if(cpu->tstate_cb != NULL) cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
-	}\
+    if(cpu->tstate_cb == NULL) { \
+        cpu->tstate += t_state - cpu->op_tstate; \
+        cpu->op_tstate = t_state; \
+    } \
+    else { \
+	    for(nn=cpu->op_tstate;nn < t_state;nn++) { \
+		    cpu->op_tstate++; \
+		    cpu->tstate++; \
+		    cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
+	    }\
+    } \
 }
 
 /*spend <amount> t-states (not affecting opcode-tstate counter,
