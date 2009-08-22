@@ -13,7 +13,7 @@
 #include "z80ex_common.h"
 
 typedef
-enum {regAF,regBC,regDE,regHL,regAF_,regBC_,regDE_,regHL_,regIX,regIY,regPC,regSP,regI,regR,regR7,regIM/*0,1 или 2*/,regIFF1,regIFF2}
+enum {regAF,regBC,regDE,regHL,regAF_,regBC_,regDE_,regHL_,regIX,regIY,regPC,regSP,regI,regR,regR7,regIM/*0,1 or 2*/,regIFF1,regIFF2}
 Z80_REG_T;
 
 typedef struct {
