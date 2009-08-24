@@ -121,7 +121,7 @@ for using outside of certain opcode execution)*/
 	    cpu->tstate += amount; \
     } \
     else { \
-    for(nn=0; nn < amount; nn++) \
+        for(nn=0; nn < amount; nn++) \
 	    { \
 		    cpu->tstate++; \
 		    cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
