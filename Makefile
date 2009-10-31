@@ -17,6 +17,7 @@ ENDIANNESS := WORDS_LITTLE_ENDIAN
 #fast and rough opcode step emulation mode (0 - off, 1 - on)
 OPSTEP_FAST_AND_ROUGH := 0
 
+
 #################################################################
 # Do not change these writings. the world sanity depends on them:
 #################################################################
@@ -25,7 +26,7 @@ EMU := libz80ex
 DASM := libz80ex_dasm
 API_REVISION := 1
 VERSION_MAJOR:=1
-VERSION_MINOR:=17
+VERSION_MINOR:=18
 RELEASE_TYPE :=
 VERSION_STR:= ${API_REVISION}.${VERSION_MAJOR}.${VERSION_MINOR}${RELEASE_TYPE}
 

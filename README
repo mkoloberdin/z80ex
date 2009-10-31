@@ -29,8 +29,7 @@ these are:
 * ENDIANNESS -- CPU endianness, one of WORDS_LITTLE_ENDIAN, WORDS_BIG_ENDIAN
 * OPSTEP_FAST_AND_ROUGH -- fast and rough opcode step emulation mode (0 - off, 1 - on)
 	when this mode is on, timings of internal I/O operations are ignored,
-	and tstate callback will feature will be disabled
-	which results in faster operation
+	and tstate callback feature is disabled
 
 
 Installing (UNIX/MacOS X):

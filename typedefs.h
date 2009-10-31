@@ -64,6 +64,8 @@ struct _z80_cpu_context {
 	void *mwrite_cb_user_data;
 	z80ex_intread_cb intread_cb;
 	void *intread_cb_user_data;
+	z80ex_reti_cb reti_cb;
+	void *reti_cb_user_data;
 	
 	/*other stuff*/
 	regpair tmpword;

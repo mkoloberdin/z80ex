@@ -52,6 +52,8 @@ typedef void (*z80ex_pwrite_cb)(Z80EX_CONTEXT *cpu, Z80EX_WORD port, Z80EX_BYTE 
 /*read byte of interrupt vector -- called when M1 and IORQ goes active*/
 typedef Z80EX_BYTE (*z80ex_intread_cb)(Z80EX_CONTEXT *cpu, void *user_data);
 
+/*called when the RETI instruction is executed (useful for emulating Z80 PIO/CTC and such)*/
+typedef void (*z80ex_reti_cb)(Z80EX_CONTEXT *cpu, void *user_data);
 
 #ifndef __Z80EX_SELF_INCLUDE
 	
@@ -81,6 +83,9 @@ extern Z80EX_BYTE z80ex_last_op_type(Z80EX_CONTEXT *cpu);
 	
 /*set T-state callback*/
 extern void z80ex_set_tstate_callback(Z80EX_CONTEXT *cpu, z80ex_tstate_cb cb_fn, void *user_data);
+
+/*set RETI callback*/
+extern void z80ex_set_reti_callback(Z80EX_CONTEXT *cpu, z80ex_reti_cb cb_fn, void *user_data);
 
 /*maskable interrupt*/
 /*returns number of T-states if interrupt was accepted, otherwise 0*/

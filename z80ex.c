@@ -173,11 +173,19 @@ LIB_EXPORT void z80ex_set_tstate_callback(Z80EX_CONTEXT *cpu, z80ex_tstate_cb cb
 	cpu->tstate_cb_user_data=user_data;
 }
 
+LIB_EXPORT void z80ex_set_reti_callback(Z80EX_CONTEXT *cpu, z80ex_reti_cb cb_fn, void *user_data)
+{
+	cpu->reti_cb=cb_fn;
+	cpu->reti_cb_user_data=user_data;
+}
+
 /*non-maskable interrupt*/
 LIB_EXPORT int z80ex_nmi(Z80EX_CONTEXT *cpu)
 {
-	if(cpu->doing_opcode || cpu->noint_once || cpu->prefix) return(0);
-
+	if(cpu->doing_opcode || cpu->noint_once || cpu->prefix) return(0);	
+	
+	if(cpu->halted) { PC++; cpu->halted = 0; } /*so we met an interrupt... stop waiting*/
+	
 	cpu->doing_opcode=1;
 	
 	R++; /*accepting interrupt increases R by one*/
@@ -193,7 +201,7 @@ LIB_EXPORT int z80ex_nmi(Z80EX_CONTEXT *cpu)
 	TSTATES(3);
 	
 	PC=0x0066;
-	MEMPTR=PC; /*FIXME: is it really so?*/
+	MEMPTR=PC; /*FIXME: is that really so?*/
 		
 	cpu->doing_opcode=0;
 	

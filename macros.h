@@ -93,23 +93,23 @@
 
 #ifndef Z80EX_OPSTEP_FAST_AND_ROUGH
 
-/*wait until end of opcode-tstate given (to be used on opcode execution)*/
+/*wait until end of opcode-tstate given (to be used on opcode execution).*/
 #define T_WAIT_UNTIL(t_state) \
 { \
-	int nn;\
-    if(cpu->tstate_cb == NULL) { \
-        if (t_state > cpu->op_tstate) { \
-            cpu->tstate += t_state - cpu->op_tstate; \
-            cpu->op_tstate = t_state; \
-        } \
-    } \
-    else { \
-	    for(nn=cpu->op_tstate;nn < t_state;nn++) { \
-		    cpu->op_tstate++; \
-		    cpu->tstate++; \
-		    cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
-	    }\
-    } \
+	int nn; \
+	if(cpu->tstate_cb == NULL) { \
+		if (t_state > cpu->op_tstate) { \
+			cpu->tstate += t_state - cpu->op_tstate; \
+			cpu->op_tstate = t_state; \
+		} \
+	} \
+	else { \
+		for(nn=cpu->op_tstate;nn < t_state;nn++) { \
+			cpu->op_tstate++; \
+			cpu->tstate++; \
+			cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
+		} \
+	} \
 }
 
 /*spend <amount> t-states (not affecting opcode-tstate counter,
@@ -117,16 +117,15 @@ for using outside of certain opcode execution)*/
 #define TSTATES(amount) \
 {\
 	int nn;\
-    if(cpu->tstate_cb == NULL) { \
-	    cpu->tstate += amount; \
-    } \
-    else { \
-        for(nn=0; nn < amount; nn++) \
-	    { \
-		    cpu->tstate++; \
-		    cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
-	    }\
-    } \
+	if(cpu->tstate_cb == NULL) { \
+		cpu->tstate += amount; \
+	} \
+	else { \
+		for(nn=0; nn < amount; nn++) { \
+			cpu->tstate++; \
+			cpu->tstate_cb(cpu, cpu->tstate_cb_user_data); \
+		}\
+	} \
 }
 
 /*read byte from memory*/
@@ -592,6 +591,7 @@ for using outside of certain opcode execution)*/
 {\
 	IFF1=IFF2;\
 	RET(rd1, rd2);\
+	if(cpu->reti_cb != NULL) cpu->reti_cb(cpu, cpu->reti_cb_user_data); \
 }
 
 /*same as RETI, only opcode is different*/
