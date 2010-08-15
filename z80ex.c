@@ -30,8 +30,7 @@
 #include "opcodes/opcodes_ddcb.c"
 #include "opcodes/opcodes_fdcb.c"
 
-#define _DOQUOTE(x) #x
-#define DOQUOTE(x) _DOQUOTE(x)
+#define DOQUOTE(x) #x
 
 static char revision_type[]=DOQUOTE(Z80EX_RELEASE_TYPE);
 static char ver_str[]=DOQUOTE(Z80EX_VERSION_STR);

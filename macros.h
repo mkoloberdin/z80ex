@@ -116,7 +116,7 @@
 for using outside of certain opcode execution)*/
 #define TSTATES(amount) \
 {\
-	int nn;\
+	unsigned nn;\
 	if(cpu->tstate_cb == NULL) { \
 		cpu->tstate += amount; \
 	} \
