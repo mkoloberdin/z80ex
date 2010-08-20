@@ -16,6 +16,10 @@
 #define __Z80EX_SELF_INCLUDE
 #include "z80ex_dasm.h"
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
+
 typedef struct {
 	const char *mnemonic;
 	int t_states;
