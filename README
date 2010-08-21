@@ -42,9 +42,9 @@ To build using MSVC (Visual Studio):
     - create a folder inside the source tree (e.g. "build")
     - start cmd.exe and go to the created folder and issue:
         cmake ..
-    - double-click zemu.sln to open it in Visual Studio
-    - build zemu project in Visual Studio (choose Release/Debug target as
-    required)
+    - double-click z80ex.sln to open it in Visual Studio
+    - build ALL_BUILD or only necessary target(s) in Visual Studio
+    (choose Release/Debug configuration as required)
 
 You may override some build parameters by using ccmake or cmake-gui or other means CMake provides (see CMake documentation and relevant man pages):
 * OPSTEP_FAST_AND_ROUGH -- fast and rough opcode step emulation mode (0 - off, 1 - on)
