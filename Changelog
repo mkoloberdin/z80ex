@@ -1,3 +1,7 @@
+20.08.2010 - 1.1.18-mm
+- switched to cmake
+- made compilation with MSVC possible
+
 12.09.2009 - 1.1.18
 - HALT/NMI bugfix (by Kalvis)
 - some code were optimized for speed (by Mastermind)
