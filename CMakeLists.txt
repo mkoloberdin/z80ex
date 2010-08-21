@@ -32,21 +32,29 @@ if (OPSTEP_FAST_AND_ROUGH)
 endif ()
 
 set (z80ex_sources z80ex.c)
-
-add_library (z80ex SHARED ${z80ex_sources})
 add_library (z80ex-static STATIC ${z80ex_sources})
 set_target_properties (z80ex-static PROPERTIES OUTPUT_NAME z80ex)
+if (NOT DEFINED Z80EX_STATIC_ONLY)
+    add_library (z80ex SHARED ${z80ex_sources})
 # Affects Win32 only: avoid dynamic/static *.lib files naming conflict 
-set_target_properties (z80ex-static PROPERTIES PREFIX "lib")
+    set_target_properties (z80ex-static PROPERTIES PREFIX "lib")
+endif ()
 
 set (z80ex_dasm_sources z80ex_dasm.c)
-add_library (z80ex_dasm SHARED ${z80ex_dasm_sources})
 add_library (z80ex_dasm-static STATIC ${z80ex_dasm_sources})
 set_target_properties (z80ex_dasm-static PROPERTIES OUTPUT_NAME z80ex_dasm)
+if (NOT DEFINED Z80EX_STATIC_ONLY)
+    add_library (z80ex_dasm SHARED ${z80ex_dasm_sources})
 # Affects Win32 only: avoid dynamic/static *.lib files naming conflict 
-set_target_properties (z80ex_dasm-static PROPERTIES PREFIX "lib")
+    set_target_properties (z80ex_dasm-static PROPERTIES PREFIX "lib")
+endif ()
 
-set_target_properties(z80ex z80ex-static z80ex_dasm z80ex_dasm-static
+if (NOT DEFINED Z80EX_STATIC_ONLY)
+    set_target_properties(z80ex z80ex_dasm
+        PROPERTIES VERSION ${VERSION_STR} SOVERSION ${API_REVISION}
+    )
+endif ()
+set_target_properties(z80ex-static z80ex_dasm-static
     PROPERTIES VERSION ${VERSION_STR} SOVERSION ${API_REVISION}
 )
 
@@ -55,5 +63,8 @@ if ("${CMAKE_C_IMPLICIT_LINK_DIRECTORIES}" MATCHES "lib64")
 else ()
     set (LIB_DIR "lib")
 endif ()
-install (TARGETS z80ex z80ex-static z80ex_dasm z80ex_dasm-static LIBRARY DESTINATION ${LIB_DIR} ARCHIVE DESTINATION ${LIB_DIR})
+if (NOT DEFINED Z80EX_STATIC_ONLY)
+    install (TARGETS z80ex z80ex_dasm LIBRARY DESTINATION ${LIB_DIR} ARCHIVE DESTINATION ${LIB_DIR})
+endif ()
+install (TARGETS z80ex-static z80ex_dasm-static LIBRARY DESTINATION ${LIB_DIR} ARCHIVE DESTINATION ${LIB_DIR})
 install (DIRECTORY include/ DESTINATION include/z80ex PATTERN "*.h" )
