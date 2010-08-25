@@ -96,7 +96,7 @@
 /*wait until end of opcode-tstate given (to be used on opcode execution).*/
 #define T_WAIT_UNTIL(t_state) \
 { \
-	int nn; \
+	unsigned nn; \
 	if(cpu->tstate_cb == NULL) { \
 		if (t_state > cpu->op_tstate) { \
 			cpu->tstate += t_state - cpu->op_tstate; \
@@ -116,7 +116,7 @@
 for using outside of certain opcode execution)*/
 #define TSTATES(amount) \
 {\
-	unsigned nn;\
+	int nn;\
 	if(cpu->tstate_cb == NULL) { \
 		cpu->tstate += amount; \
 	} \
