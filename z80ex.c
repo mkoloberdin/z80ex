@@ -191,7 +191,7 @@ LIB_EXPORT int z80ex_nmi(Z80EX_CONTEXT *cpu)
 	cpu->doing_opcode=1;
 	
 	R++; /*accepting interrupt increases R by one*/
-	IFF2=IFF1;
+	/*IFF2=IFF1;*/ /*contrary to zilog z80 docs, IFF2 is not modified on NMI. proved by Slava Tretiak aka restorer*/
 	IFF1=0;
 
 	TSTATES(5); 

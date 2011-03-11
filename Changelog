@@ -1,3 +1,7 @@
+21.01.2010 - 1.1.19
+- removed IFF2=IFF1 on NMI. it's contrary to zilog z80 docs, but is true
+(proved by Restorer)
+
 24.08.2010 - 1.1.19pre1
 - cmake build support [mkoloberdin]
 - fixes for MSVC compilation [mkoloberdin]
